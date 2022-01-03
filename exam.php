@@ -51,7 +51,8 @@ if(isset($_POST["btnexit"]))
         array("to Dublicate Code using ","if","while","switch","Rand")
     );
 
-    
+    $model = array("$","if","Rand","array","while");
+
 
     if(!isset( $_SESSION["qno"])){
         $x=0;
@@ -66,6 +67,8 @@ if(isset($_POST["btnexit"]))
        echo'<input type="submit" class="btn btn-success" value="next" name="btnnext" >';
         $x++;
         $_SESSION["qno"]=$x;
+        $_SESSION["correct"]=0;
+        $_SESSION["incorrect"]=0;
 
     }
     
@@ -74,6 +77,14 @@ if(isset($_POST["btnexit"]))
 
     if (isset($_POST["btnnext"]))
     {
+        $answer = $_POST["rdchoice"];
+        if($answer==$model[$_SESSION["qno"]-1])
+        {
+            $_SESSION["correct"]++;
+        }else{
+            $_SESSION["incorrect"]++;
+        }
+
         if ( $_SESSION["qno"]<5)
         {
          $x = $_SESSION["qno"];
@@ -127,6 +138,11 @@ if(isset($_POST["btnexit"]))
             echo'<input type="submit" class="btn btn-success" value="next" name="btnnext" >';
         }
       
+    }
+
+    if(isset($_POST["btnfinish"]))
+    {
+        header("Location:result.php");
     }
 ?>
 
